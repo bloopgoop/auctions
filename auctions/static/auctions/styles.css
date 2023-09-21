@@ -1,0 +1,150 @@
+body {
+    padding: 10px;
+}
+
+.all-listings li { background: #ffffff; }
+.all-listings li:nth-child(odd) { background: #dbe4f4; }
+
+.all-listings {
+    list-style-type: none;
+    list-style-position: inside;
+    padding-left: 0px;
+}
+
+/* Style the scrollbar track */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 6px;
+}
+
+/* Style the scrollbar track when hovering over it */
+::-webkit-scrollbar-track:hover {
+background: #aaa;
+}
+
+.listing-container {
+    display: flex;
+    height: 220px;
+    overflow: auto;
+
+}
+
+.listing-image {
+    padding:10px;
+    border: 1px #333;
+    width: 220px;
+    height: 220px;
+}
+
+.listing-info {
+    padding: 10px;
+    width: 100%;
+}
+
+.listing-title {
+    display: block;
+    text-align: center;
+    font-size: 25px;
+}
+
+.listing-body {
+    display: block;
+    max-height: 48px;
+    overflow: hidden;
+}
+
+th {
+    padding: 10px 5px 10px 5px;
+}
+
+input[type="submit"] {
+    height: 40px;
+    min-width: 120px;
+    margin: 10px 0;
+    padding: 0 12px;
+    background-color: #4aa5ff;
+    border: 1px solid #3079ed;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+#categories {
+    list-style-type: none;
+    font-size: 23px;
+}
+
+#none {
+    background-color: #fff;
+}
+
+.message {
+    display: block;
+    text-align: center;
+    background-color: #F2F1A2;
+}
+
+.title {
+    display: block;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.description {
+    display: block; text-align: center;
+}
+
+.listing-small-container {
+    padding-left: 10px;
+    display: flex;
+    height: 48px;
+    line-height: 48px;
+    overflow: auto;
+}
+
+.listing-small-box {
+    width: 150px;
+}
+
+commentsection {
+    display: block;
+}
+
+textarea {
+    resize: none;
+    width: 70%;
+}
+
+.all-comments li { background: #ffffff; }
+.all-comments li:nth-child(odd) { background: #f4ebdb; }
+
+.all-comments {
+    list-style-type: none;
+    list-style-position: inside;
+    padding-left: 0px;
+}
+
+.comment-container {
+    padding-left: 10px;
+    display: flex;
+    height: 128px;
+    overflow: none;
+}
+
+.username-container {
+    padding: 0 10px;
+    line-height: 128px;
+}
+
+.user-comment {
+    padding: 10px 20px;
+    width: 80%;
+}

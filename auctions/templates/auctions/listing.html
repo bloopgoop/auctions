@@ -1,0 +1,113 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if user.username == listing.winner %}
+        <strong style="display: block; background-color: greenyellow; text-align: center;">
+            You Won!
+        </strong>
+    {% endif %}
+    <div class="message">{{ message }}</div>
+    <h2 class="title">{{ listing.title }}</h2>
+
+    <div class="listing-info">
+        <div class="listing-container">
+            <div class="listing-image">
+                <img src="{{ listing.image }}" alt="Image not found" width="200" height="200">
+            </div>
+            <div class="listing-info">
+                <div class="description">
+                    <strong>Description</strong>
+                </div>
+                <div class="description">
+                    {{ listing.description }}
+                </div>
+            </div>
+        </div>
+        
+        <ul class="all-listings">
+
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Seller: </strong>{{ listing.seller }}
+            </li>
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Starting Bid: </strong>{{ listing.starting_bid }}
+            </li>
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Buyout: </strong>{{ listing.buyout }}
+            </li>
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Posted on: </strong>{{ listing.start_time }} UTC
+            </li>
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Duration: </strong>{{ listing.duration }}
+            </li>
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Category: </strong>{{ listing.category }}
+            </li>
+            <li class="listing-small-container">
+                <strong class="listing-small-box">Current Price: </strong>{{ listing.current_price}}
+            </li>
+
+        </ul>
+        
+    </div>
+
+
+    {% if user.is_authenticated and not listing.closed %}
+
+        <div style="display: flex; justify-content: space-between;">
+            <!-- Watchlist button -->
+            <form name="watchlist-form" action="{% url 'listing' listing=listing.id %}" method="post">
+                {% csrf_token %}
+                {% if watching %}
+                    <input type="submit" name="unwatchlist" value="Unwatchlist this">
+                {% else %}
+                    <input type="submit" name="watchlist" value="Watchlist this">
+                {% endif %}
+            </form>
+
+
+            <!-- If seller, end auction button. Else, bid form -->
+            {% if user == listing.seller %}
+                <form name="end_auction_form" action="{% url 'listing' listing=listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" name="end" value="Cancel">
+                </form>
+            {% else %}
+                <form name="bid-form" action="{% url 'listing' listing=listing.id %}" method="post">
+                    {% csrf_token %}
+                    {{ bid_form }}
+                    <input type="submit" name="bid" value="Bid">
+                </form>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <!--Comment form-->
+        <div style="display: block; text-align: center; margin-top: 40px;">
+            <form name="comment-form" action="{% url 'listing' listing=listing.id %}" method="post">
+                {% csrf_token %}
+                {{ comment_form }}
+                <input type="submit" name="post" value="Post">
+            </form>
+        </div>
+
+    {% endif %}
+
+    <h2 class="title">Comments</h2>
+    <commentsection>
+        <ul class="all-comments">
+            {% for comment in comments %}
+                <li class="comment-container">
+                    <strong class="username-container">{{ comment.user.username }}</strong>
+                    <div class="user-comment">{{ comment.comment }}</div>
+                    <div style="float: right;">{{ comment.time }} UTC</div>
+                </li>
+            {% empty %}
+            <li><strong class="username-container">No comments</strong></li>
+            {% endfor %}
+        </ul>
+    </commentsection>
+
+{% endblock %}
